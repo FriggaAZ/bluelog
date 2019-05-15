@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-    :author: Grey Li (李辉)
-    :url: http://greyli.com
-    :copyright: © 2018 Grey Li <withlihui@gmail.com>
-    :license: MIT, see LICENSE for more details.
-"""
 import random
 
 from faker import Faker
@@ -19,10 +12,10 @@ fake = Faker()
 def fake_admin():
     admin = Admin(
         username='admin',
-        blog_title='Bluelog',
-        blog_sub_title="No, I'm the real thing.",
-        name='Mima Kirigoe',
-        about='Um, l, Mima Kirigoe, had a fun time as a member of CHAM...'
+        blog_title='博客',
+        blog_sub_title="似此星辰",
+        name='Yapei',
+        about='Member of earth.'
     )
     admin.set_password('helloflask')
     db.session.add(admin)
@@ -113,9 +106,9 @@ def fake_comments(count=500):
 
 
 def fake_links():
-    twitter = Link(name='Twitter', url='#')
-    facebook = Link(name='Facebook', url='#')
+    twitter = Link(name='微博', url='#')
+    facebook = Link(name='豆瓣小组', url='#')
     linkedin = Link(name='LinkedIn', url='#')
-    google = Link(name='Google+', url='#')
+    google = Link(name='电报', url='#')
     db.session.add_all([twitter, facebook, linkedin, google])
     db.session.commit()
