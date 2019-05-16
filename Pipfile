@@ -9,6 +9,7 @@ watchdog = "*"
 "flake8" = "*"
 faker = "*"
 pylint = "*"
+pep8 = "*"
 
 [packages]
 flask = "*"
@@ -28,3 +29,4 @@ pymysql = "*"
 mysqldb = "*"
 mysqlclient = "*"
 mysql-python = "*"
+yapf = "*"
