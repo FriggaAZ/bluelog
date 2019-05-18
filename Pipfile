@@ -8,7 +8,7 @@ coverage = "*"
 watchdog = "*"
 "flake8" = "*"
 faker = "*"
-pylint = "*"
+pylint = "<2.0.0"
 pep8 = "*"
 
 [packages]
