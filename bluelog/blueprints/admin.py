@@ -11,7 +11,7 @@ from bluelog.utils import redirect_back, allowed_file
 
 admin_bp = Blueprint('admin', __name__)
 
-
+# 设置博客信息
 @admin_bp.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
@@ -30,7 +30,7 @@ def settings():
     form.about.data = current_user.about
     return render_template('admin/settings.html', form=form)
 
-
+# 管理帖子
 @admin_bp.route('/post/manage')
 @login_required
 def manage_post():
@@ -40,7 +40,7 @@ def manage_post():
     posts = pagination.items
     return render_template('admin/manage_post.html', page=page, pagination=pagination, posts=posts)
 
-
+# 新建帖子
 @admin_bp.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -56,7 +56,7 @@ def new_post():
         return redirect(url_for('blog.show_post', post_id=post.id))
     return render_template('admin/new_post.html', form=form)
 
-
+# 编辑帖子
 @admin_bp.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
@@ -74,7 +74,7 @@ def edit_post(post_id):
     form.category.data = post.category_id
     return render_template('admin/edit_post.html', form=form)
 
-
+# 删除帖子
 @admin_bp.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
@@ -84,7 +84,7 @@ def delete_post(post_id):
     flash('Post deleted.', 'success')
     return redirect_back()
 
-
+# 设置是否可以评论
 @admin_bp.route('/post/<int:post_id>/set-comment', methods=['POST'])
 @login_required
 def set_comment(post_id):
@@ -98,7 +98,7 @@ def set_comment(post_id):
     db.session.commit()
     return redirect_back()
 
-
+# 管理评论
 @admin_bp.route('/comment/manage')
 @login_required
 def manage_comment():
@@ -116,7 +116,7 @@ def manage_comment():
     comments = pagination.items
     return render_template('admin/manage_comment.html', comments=comments, pagination=pagination)
 
-
+# 批准评论
 @admin_bp.route('/comment/<int:comment_id>/approve', methods=['POST'])
 @login_required
 def approve_comment(comment_id):
@@ -126,7 +126,7 @@ def approve_comment(comment_id):
     flash('Comment published.', 'success')
     return redirect_back()
 
-
+# 删除评论
 @admin_bp.route('/comment/<int:comment_id>/delete', methods=['POST'])
 @login_required
 def delete_comment(comment_id):
@@ -136,13 +136,13 @@ def delete_comment(comment_id):
     flash('Comment deleted.', 'success')
     return redirect_back()
 
-
+# 管理分类
 @admin_bp.route('/category/manage')
 @login_required
 def manage_category():
     return render_template('admin/manage_category.html')
 
-
+# 新建分类
 @admin_bp.route('/category/new', methods=['GET', 'POST'])
 @login_required
 def new_category():
@@ -156,7 +156,7 @@ def new_category():
         return redirect(url_for('.manage_category'))
     return render_template('admin/new_category.html', form=form)
 
-
+# 编辑分类名称
 @admin_bp.route('/category/<int:category_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_category(category_id):
@@ -174,7 +174,7 @@ def edit_category(category_id):
     form.name.data = category.name
     return render_template('admin/edit_category.html', form=form)
 
-
+# 删除分类
 @admin_bp.route('/category/<int:category_id>/delete', methods=['POST'])
 @login_required
 def delete_category(category_id):
@@ -186,13 +186,13 @@ def delete_category(category_id):
     flash('Category deleted.', 'success')
     return redirect(url_for('.manage_category'))
 
-
+# 管理链接
 @admin_bp.route('/link/manage')
 @login_required
 def manage_link():
     return render_template('admin/manage_link.html')
 
-
+# 新建链接
 @admin_bp.route('/link/new', methods=['GET', 'POST'])
 @login_required
 def new_link():
@@ -207,7 +207,7 @@ def new_link():
         return redirect(url_for('.manage_link'))
     return render_template('admin/new_link.html', form=form)
 
-
+# 编辑链接
 @admin_bp.route('/link/<int:link_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_link(link_id):
@@ -223,7 +223,7 @@ def edit_link(link_id):
     form.url.data = link.url
     return render_template('admin/edit_link.html', form=form)
 
-
+# 删除链接
 @admin_bp.route('/link/<int:link_id>/delete', methods=['POST'])
 @login_required
 def delete_link(link_id):
@@ -233,7 +233,7 @@ def delete_link(link_id):
     flash('Link deleted.', 'success')
     return redirect(url_for('.manage_link'))
 
-
+# 上传文件
 @admin_bp.route('/uploads/<path:filename>')
 def get_image(filename):
     return send_from_directory(current_app.config['BLUELOG_UPLOAD_PATH'], filename)
